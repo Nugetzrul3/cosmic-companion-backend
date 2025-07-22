@@ -1,5 +1,5 @@
 const User = require('../../models/user');
-const { createToken, bcrypt } = require('../../utils/auth');
+const { createToken, createRefreshToken, getRefreshToken, bcrypt } = require('../../utils/auth');
 
 module.exports = {
     Query: {
@@ -22,8 +22,9 @@ module.exports = {
                 }
             );
             const token = createToken(user);
+            const refreshToken = createRefreshToken(user)
 
-            return { token, user };
+            return { token, refreshToken, user };
         },
 
         login: async (_, { email, password }) => {
@@ -34,7 +35,22 @@ module.exports = {
             if (!valid) throw new Error('Invalid credentials');
 
             const token = createToken(user);
-            return { token, user };
+            const refreshToken = createRefreshToken(user)
+
+            return { token, refreshToken, user };
+        },
+
+        refreshToken: async (_, { token }) => {
+            const payload = getRefreshToken(token);
+            if (!payload) throw new Error('Refresh token invalid');
+
+            const user = await User.findByPk(payload.id)
+            if (!user) throw new Error('User does not exist');
+
+            const new_token = createToken(user)
+
+            return { token: new_token, user }
+
         }
     }
 }
