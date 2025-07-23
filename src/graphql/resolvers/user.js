@@ -12,7 +12,7 @@ module.exports = {
         signup: async (_, { email, password }) => {
             const existingUser = await User.findOne({ where: { email: email } });
 
-            if (existingUser) throw new Error('User already exists');
+            if (existingUser) return { error: 'User already exists' };
 
             const hashedPassword = await bcrypt.hash(password, 10);
             const user = await User.create(
@@ -29,10 +29,10 @@ module.exports = {
 
         login: async (_, { email, password }) => {
             const user = await User.findOne({ where: { email: email } });
-            if (!user) throw new Error('User does not exist');
+            if (!user) return { error: "User does not exist" }
 
             const valid = await bcrypt.compare(password, user.password);
-            if (!valid) throw new Error('Invalid credentials');
+            if (!valid) return { error: "Invalid credentials" }
 
             const token = createToken(user);
             const refreshToken = createRefreshToken(user)
