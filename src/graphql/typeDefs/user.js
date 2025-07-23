@@ -7,18 +7,21 @@ module.exports = gql`
     }
     
     type AuthPayload {
-        token: String!
-        refreshToken: String!
-        user: User!
+        token: String
+        refreshToken: String
+        user: User
+        error: String
     },
     
     type RefreshPayload {
-        user: User!
-        token: String!
+        user: User
+        token: String
+        error: String
     }
     
     type Query {
         me: User
+        error: String
     }
     
     type Mutation {
