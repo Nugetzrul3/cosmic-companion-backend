@@ -19,14 +19,19 @@ module.exports = gql`
         error: String
     }
     
+    input LoginBody {
+        email: String!
+        password: String!
+    }
+    
     type Query {
         me: User
         error: String
     }
     
     type Mutation {
-        signup(email: String!, password: String!): AuthPayload!
-        login(email: String!, password: String!): AuthPayload!
+        signup(data: LoginBody): AuthPayload!
+        login(data: LoginBody): AuthPayload!
         refreshToken(token: String!): RefreshPayload!
     }
 `;
