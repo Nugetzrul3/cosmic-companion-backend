@@ -4,20 +4,20 @@ const { createToken, createRefreshToken, getRefreshToken, bcrypt } = require('..
 module.exports = {
     Query: {
         me: (_, __, { user }) => {
-            return user ? User.findByPk(user.id) : null;
+            return user ? User.findOne( { where: { email: user.email } } ) : null;
         }
     },
 
     Mutation: {
-        signup: async (_, { email, password }) => {
-            const existingUser = await User.findOne({ where: { email: email } });
+        signup: async (_, { data }) => {
+            const existingUser = await User.findOne({ where: { email: data.email } });
 
             if (existingUser) return { error: 'User already exists' };
 
-            const hashedPassword = await bcrypt.hash(password, 10);
+            const hashedPassword = await bcrypt.hash(data.password, 10);
             const user = await User.create(
                 {
-                    email: email,
+                    email: data.email,
                     password: hashedPassword,
                 }
             );
@@ -27,11 +27,11 @@ module.exports = {
             return { token, refreshToken, user };
         },
 
-        login: async (_, { email, password }) => {
-            const user = await User.findOne({ where: { email: email } });
+        login: async (_, { data }) => {
+            const user = await User.findOne({ where: { email: data.email } });
             if (!user) return { error: "User does not exist" }
 
-            const valid = await bcrypt.compare(password, user.password);
+            const valid = await bcrypt.compare(data.password, user.password);
             if (!valid) return { error: "Invalid credentials" }
 
             const token = createToken(user);
