@@ -33,6 +33,10 @@ const startServer = async () => {
     sequelize.sync({ alter: true }).then(() => {
         app.listen(3000, 'localhost', () => console.log(`Server running on port 3000, ${server.graphqlPath}`));
     });
+
+    return app;
 }
 
 startServer();
+
+module.exports = { startServer }
