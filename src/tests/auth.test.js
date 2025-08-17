@@ -1,23 +1,41 @@
 const { createApp } = require("../app");
 const request = require("supertest");
-const utils = require("./utils");
-
-const variables = {
-    email: utils.generateRandomEmail(),
-    password: utils.generateRandomPassword(),
-};
 
 let app;
 
 beforeAll(async () => {
     app = await createApp();
-})
+});
 
 describe('Auth Mutations', () => {
+    const signup_variables = {
+        firstName: "Graph",
+        lastName: "QL",
+        username: "graphql",
+        email: "graphql@test.com",
+        password: "GraphQL123",
+    };
+
+    const login_variables = {
+        email: signup_variables.email,
+        password: signup_variables.password,
+    };
+
     it('should sign up with valid credentials', async () => {
         const query = `
-            mutation Signup($email: String!, $password: String!) {
-                signup(data: {email: $email, password: $password}) {
+            mutation Signup(
+                $firstName: String!, $lastName: String!, $username: String!, 
+                $email: String!, $password: String!
+            ) {
+                signup(
+                    data: {
+                        firstName: $firstName,
+                        lastName: $lastName,
+                        username: $username,
+                        email: $email, 
+                        password: $password
+                    }
+                ) {
                     token
                     refreshToken
                     user {
@@ -30,14 +48,13 @@ describe('Auth Mutations', () => {
 
         const res = await request(app)
             .post('/graphql')
-            .send({ query, variables });
-
+            .send({ query, variables: signup_variables });
 
         expect(res.status).toBe(200);
         expect(res.body.data.signup.token).not.toBe(null);
         expect(res.body.data.signup.refreshToken).not.toBe(null);
         expect(res.body.data.signup.user).not.toBe(null);
-        expect(res.body.data.signup.user.email).toBe(variables.email);
+        expect(res.body.data.signup.user.email).toBe(signup_variables.email);
         expect(res.body.data.signup.error).toBe(null);
 
     });
@@ -45,8 +62,19 @@ describe('Auth Mutations', () => {
     it('should fail with an error message indicating duplicate credentials',
         async () => {
             const query = `
-            mutation Signup($email: String!, $password: String!) {
-                signup(data: {email: $email, password: $password}) {
+            mutation Signup(
+                $firstName: String!, $lastName: String!, $username: String!, 
+                $email: String!, $password: String!
+            ) {
+                signup(
+                    data: {
+                        firstName: $firstName,
+                        lastName: $lastName,
+                        username: $username,
+                        email: $email, 
+                        password: $password
+                    }
+                ) {
                     token
                     refreshToken
                     user {
@@ -59,7 +87,7 @@ describe('Auth Mutations', () => {
 
             const res = await request(app)
                 .post('/graphql')
-                .send({ query, variables });
+                .send({ query, variables: signup_variables });
 
 
             expect(res.status).toBe(200);
@@ -86,7 +114,7 @@ describe('Auth Mutations', () => {
 
         const res = await request(app)
             .post('/graphql')
-            .send({ query, variables });
+            .send({ query, variables: login_variables });
 
 
         expect(res.status).toBe(200);
@@ -94,7 +122,7 @@ describe('Auth Mutations', () => {
         expect(res.body.data.login.refreshToken).not.toBe(null);
         expect(res.body.data.login.user).not.toBe(null);
         expect(res.body.data.login.error).toBe(null);
-        expect(res.body.data.login.user.email).toBe(variables.email);
+        expect(res.body.data.login.user.email).toBe(login_variables.email);
     });
 
     it('should fail with an error message indicating the user does not exist', async () => {
@@ -142,11 +170,11 @@ describe('Auth Mutations', () => {
             }
         `;
 
-        variables.password = "InvalidPassword123";
+        login_variables.password = "InvalidPassword123";
 
         const res = await request(app)
             .post('/graphql')
-            .send({ query, variables });
+            .send({ query, variables: login_variables });
 
 
         expect(res.status).toBe(200);

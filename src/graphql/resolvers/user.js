@@ -4,19 +4,22 @@ const { createToken, createRefreshToken, getRefreshToken, bcrypt } = require('..
 module.exports = {
     Query: {
         me: (_, __, { user }) => {
-            return user ? User.findOne( { where: { email: user.email } } ) : null;
+            return user ? User.findOne({ where: { email: user.email }}) : null;
         }
     },
 
     Mutation: {
         signup: async (_, { data }) => {
-            const existingUser = await User.findOne({ where: { email: data.email } });
+            const existingUser = await User.findOne({ where: { email: data.email }});
 
             if (existingUser) return { error: 'User already exists' };
 
             const hashedPassword = await bcrypt.hash(data.password, 10);
             const user = await User.create(
                 {
+                    first_name: data.firstName,
+                    last_name: data.lastName,
+                    username: data.username,
                     email: data.email,
                     password: hashedPassword,
                 }

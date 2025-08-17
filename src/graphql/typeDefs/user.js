@@ -19,6 +19,14 @@ module.exports = gql`
         error: String
     }
     
+    input RegisterBody {
+        firstName: String!
+        lastName: String!
+        username: String!
+        email: String!
+        password: String!
+    }
+    
     input LoginBody {
         email: String!
         password: String!
@@ -30,7 +38,7 @@ module.exports = gql`
     }
     
     type Mutation {
-        signup(data: LoginBody): AuthPayload!
+        signup(data: RegisterBody): AuthPayload!
         login(data: LoginBody): AuthPayload!
         refreshToken(token: String!): RefreshPayload!
     }
