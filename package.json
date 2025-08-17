@@ -4,8 +4,14 @@
   "description": "A GraphQL backend for the Cosmic Companion web app and mobile application",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon src/server.js",
+    "test": "jest"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "src/tests",
+      "coverage"
+    ]
   },
   "repository": {
     "type": "git",
@@ -25,9 +31,15 @@
     "express": "^4.18.2",
     "graphql": "^16.11.0",
     "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.1.10",
     "pg": "^8.16.3",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.7",
-    "nodemon": "^3.1.10"
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@graphql-tools/schema": "^10.0.25",
+    "jest": "^30.0.5",
+    "supertest": "^7.1.4"
   }
 }
