@@ -8,6 +8,8 @@ on:
 jobs:
   test:
     runs-on: "ubuntu-latest"
+    env:
+      JWT_SECRET: "TEST_JWT_SECRET"
 
     steps:
       - name: Checkout Repository
