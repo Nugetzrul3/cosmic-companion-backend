@@ -43,7 +43,7 @@ module.exports = {
             return { token, refreshToken, user };
         },
 
-        refreshToken: async (_, { token }) => {
+        refresh: async (_, { token }) => {
             const payload = getRefreshToken(token);
             if (!payload) throw new Error('Refresh token invalid');
 
