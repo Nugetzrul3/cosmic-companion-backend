@@ -16,7 +16,6 @@ const getUserFromToken = (token) => {
         if (token.startsWith('Bearer ')) token = token.split(' ')[1];
         return jwt.verify(token, JWT_SECRET);
     } catch (e) {
-        console.error('getUserFromToken', e.message);
         return null;
     }
 }
