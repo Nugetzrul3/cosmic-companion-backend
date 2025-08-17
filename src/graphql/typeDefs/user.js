@@ -4,6 +4,9 @@ module.exports = gql`
     type User {
         id: ID!
         email: String!
+        username: String!
+        first_name: String!
+        last_name: String
     }
     
     type AuthPayload {
@@ -40,6 +43,6 @@ module.exports = gql`
     type Mutation {
         signup(data: RegisterBody): AuthPayload!
         login(data: LoginBody): AuthPayload!
-        refreshToken(token: String!): RefreshPayload!
+        refresh(token: String!): RefreshPayload!
     }
 `;
