@@ -32,6 +32,7 @@ describe('Auth Mutations', () => {
             .post('/graphql')
             .send({ query, variables });
 
+
         expect(res.status).toBe(200);
         expect(res.body.data.signup.token).not.toBe(null);
         expect(res.body.data.signup.refreshToken).not.toBe(null);
@@ -60,6 +61,7 @@ describe('Auth Mutations', () => {
                 .post('/graphql')
                 .send({ query, variables });
 
+
             expect(res.status).toBe(200);
             expect(res.body.data.signup.token).toBe(null);
             expect(res.body.data.signup.refreshToken).toBe(null);
@@ -85,6 +87,7 @@ describe('Auth Mutations', () => {
         const res = await request(app)
             .post('/graphql')
             .send({ query, variables });
+
 
         expect(res.status).toBe(200);
         expect(res.body.data.login.token).not.toBe(null);
@@ -117,6 +120,7 @@ describe('Auth Mutations', () => {
             .post('/graphql')
             .send({ query, variables });
 
+
         expect(res.status).toBe(200);
         expect(res.body.data.login.token).toBe(null);
         expect(res.body.data.login.refreshToken).toBe(null);
@@ -143,6 +147,7 @@ describe('Auth Mutations', () => {
         const res = await request(app)
             .post('/graphql')
             .send({ query, variables });
+
 
         expect(res.status).toBe(200);
         expect(res.body.data.login.token).toBe(null);

@@ -1,0 +1,27 @@
+name: "CosmicCompanion Backend Pipeline"
+
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  test:
+    runs-on: "ubuntu-latest"
+    env:
+      JWT_SECRET: "TEST_JWT_SECRET"
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
