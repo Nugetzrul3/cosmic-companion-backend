@@ -32,7 +32,6 @@ describe('Auth Mutations', () => {
             .post('/graphql')
             .send({ query, variables });
 
-        console.log(JSON.stringify(res.body))
 
         expect(res.status).toBe(200);
         expect(res.body.data.signup.token).not.toBe(null);
@@ -62,7 +61,6 @@ describe('Auth Mutations', () => {
                 .post('/graphql')
                 .send({ query, variables });
 
-            console.log(JSON.stringify(res.body))
 
             expect(res.status).toBe(200);
             expect(res.body.data.signup.token).toBe(null);
@@ -90,7 +88,6 @@ describe('Auth Mutations', () => {
             .post('/graphql')
             .send({ query, variables });
 
-        console.log(JSON.stringify(res.body))
 
         expect(res.status).toBe(200);
         expect(res.body.data.login.token).not.toBe(null);
@@ -123,7 +120,6 @@ describe('Auth Mutations', () => {
             .post('/graphql')
             .send({ query, variables });
 
-        console.log(JSON.stringify(res.body))
 
         expect(res.status).toBe(200);
         expect(res.body.data.login.token).toBe(null);
@@ -152,7 +148,6 @@ describe('Auth Mutations', () => {
             .post('/graphql')
             .send({ query, variables });
 
-        console.log(JSON.stringify(res.body))
 
         expect(res.status).toBe(200);
         expect(res.body.data.login.token).toBe(null);
