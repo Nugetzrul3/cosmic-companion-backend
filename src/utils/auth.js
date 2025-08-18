@@ -29,4 +29,26 @@ const getRefreshToken = (token) => {
     }
 }
 
-module.exports = { createToken, createRefreshToken, getUserFromToken, getRefreshToken, bcrypt };
+const getCookie = (cookieString, cookieName) => {
+    if (!cookieString) {
+        return null; // No cookie header found
+    }
+
+    const cookies = cookieString.split(';'); // Split the string into individual cookie parts
+    for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].trim(); // Trim whitespace
+        // Find the index of the first '=' to separate name and value
+        const eqIndex = cookie.indexOf('=');
+        if (eqIndex > -1) {
+            const name = cookie.substring(0, eqIndex);
+            const value = cookie.substring(eqIndex + 1);
+
+            if (name === cookieName) {
+                return decodeURIComponent(value); // Decode the value and return
+            }
+        }
+    }
+    return null; // Cookie not found
+}
+
+module.exports = { createToken, createRefreshToken, getUserFromToken, getRefreshToken, getCookie, bcrypt };

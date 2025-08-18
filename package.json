@@ -10,7 +10,8 @@
   "nodemonConfig": {
     "ignore": [
       "src/tests",
-      "coverage"
+      "coverage",
+      "doc"
     ]
   },
   "repository": {
