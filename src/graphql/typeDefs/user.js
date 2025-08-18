@@ -11,7 +11,6 @@ module.exports = gql`
     
     type AuthPayload {
         token: String
-        refreshToken: String
         user: User
         error: String
     },
@@ -43,6 +42,6 @@ module.exports = gql`
     type Mutation {
         signup(data: RegisterBody): AuthPayload!
         login(data: LoginBody): AuthPayload!
-        refresh(token: String!): RefreshPayload!
+        refresh: RefreshPayload!
     }
 `;

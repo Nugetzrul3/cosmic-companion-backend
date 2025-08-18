@@ -43,8 +43,8 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation Register(\r\n        $firstName: String!, $lastName: String!, $username: String!,\r\n        $email: String!, $password: String!\r\n    ) {\r\n    signup(\r\n        data: { \r\n            firstName: $firstName,\r\n            lastName: $lastName,\r\n            username: $username,\r\n            email: $email, \r\n            password: $password \r\n        }\r\n    ) {\r\n        token\r\n        refreshToken\r\n        error\r\n    }\r\n}",
-								"variables": "{\r\n    \"firstName\": \"Graph\",\r\n    \"lastName\": \"QL\",\r\n    \"username\": \"grapgql\",\r\n    \"email\": \"graphql@test.com\",\r\n    \"password\": \"GraphQL123\"\r\n}"
+								"query": "mutation Register(\r\n        $firstName: String!, $lastName: String!, $username: String!,\r\n        $email: String!, $password: String!\r\n    ) {\r\n    signup(\r\n        data: { \r\n            firstName: $firstName,\r\n            lastName: $lastName,\r\n            username: $username,\r\n            email: $email, \r\n            password: $password \r\n        }\r\n    ) {\r\n        token\r\n        error\r\n    }\r\n}",
+								"variables": "{\r\n    \"firstName\": \"Graph\",\r\n    \"lastName\": \"QL\",\r\n    \"username\": \"grapgql\",\r\n    \"email\": \"graphql1@test.com\",\r\n    \"password\": \"GraphQL123\"\r\n}"
 							}
 						},
 						"url": {
@@ -72,20 +72,24 @@
 							"value": "*"
 						},
 						{
+							"key": "Set-Cookie",
+							"value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJncmFwaHFsMUB0ZXN0LmNvbSIsImlhdCI6MTc1NTUxOTc1MywiZXhwIjoxNzU1NTYyOTUzfQ.YUHlxaZ11YNknh6OH5hxUFG-uRzIoNXDW68FZwy4dHE; Max-Age=604800; Path=/; Expires=Mon, 25 Aug 2025 12:22:33 GMT; HttpOnly; SameSite=Lax"
+						},
+						{
 							"key": "Content-Type",
 							"value": "application/json; charset=utf-8"
 						},
 						{
 							"key": "Content-Length",
-							"value": "410"
+							"value": "221"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"19a-D47Qg9CXRUkZM3fdQC1SRQdDZHg\""
+							"value": "W/\"dd-rRqeK19lydm3Mmzh/9Ej5m4HDBc\""
 						},
 						{
 							"key": "Date",
-							"value": "Sun, 17 Aug 2025 10:18:42 GMT"
+							"value": "Mon, 18 Aug 2025 12:22:33 GMT"
 						},
 						{
 							"key": "Connection",
@@ -97,7 +101,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"data\": {\n        \"signup\": {\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJncmFwaHFsQHRlc3QuY29tIiwiaWF0IjoxNzU1NDI1OTIyLCJleHAiOjE3NTU0NjkxMjJ9.orrUhbNNPFBAwE5y_pnR3POgdcssr9f76-x4s0mcHbY\",\n            \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJncmFwaHFsQHRlc3QuY29tIiwiaWF0IjoxNzU1NDI1OTIyLCJleHAiOjE3NTYwMzA3MjJ9.R3OAzMqo6ZG8wzE8tG69ljddt1xBv93eeYvxNgbr9xM\",\n            \"error\": null\n        }\n    }\n}"
+					"body": "{\n    \"data\": {\n        \"signup\": {\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJncmFwaHFsMUB0ZXN0LmNvbSIsImlhdCI6MTc1NTUxOTc1MywiZXhwIjoxNzU1NTYyOTUzfQ.YUHlxaZ11YNknh6OH5hxUFG-uRzIoNXDW68FZwy4dHE\",\n            \"error\": null\n        }\n    }\n}"
 				}
 			]
 		},
@@ -128,70 +132,6 @@
 			},
 			"response": [
 				{
-					"name": "New Request",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation {\r\n    login(data: { email: \"graphql@test.com\", password: \"GraphQL123\" }) {\r\n        token\r\n        refreshToken\r\n        error\r\n    }\r\n}",
-								"variables": ""
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/graphql",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"graphql"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "",
-					"header": [
-						{
-							"key": "X-Powered-By",
-							"value": "Express"
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "409"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"199-yVzAyZoOLeAthKup58mpz7mwdHs\""
-						},
-						{
-							"key": "Date",
-							"value": "Sun, 17 Aug 2025 09:30:56 GMT"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=5"
-						}
-					],
-					"cookie": [],
-					"body": "{\n    \"data\": {\n        \"login\": {\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJncmFwaHFsQHRlc3QuY29tIiwiaWF0IjoxNzU1NDIzMDU2LCJleHAiOjE3NTU0NjYyNTZ9.yUPruQWxBMazvDibOwEsKdrXS5nnxIXxYYb9Rs02n8s\",\n            \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJncmFwaHFsQHRlc3QuY29tIiwiaWF0IjoxNzU1NDIzMDU2LCJleHAiOjE3NTYwMjc4NTZ9.nCz0bNKrfGmvrWn7uF-pDFTm6QC41ocqUaA68hW4Svw\",\n            \"error\": null\n        }\n    }\n}"
-				},
-				{
 					"name": "Login",
 					"originalRequest": {
 						"method": "POST",
@@ -199,7 +139,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation Login($email: String!, $password: String!) {\r\n    login(\r\n        data: {\r\n            email: $email,\r\n            password: $password\r\n        }\r\n    ) {\r\n        token\r\n        refreshToken\r\n        error\r\n    }\r\n}",
+								"query": "mutation Login($email: String!, $password: String!) {\r\n    login(\r\n        data: {\r\n            email: $email,\r\n            password: $password\r\n        }\r\n    ) {\r\n        token\r\n        error\r\n    }\r\n}",
 								"variables": "{\r\n    \"email\": \"graphql@test.com\",\r\n    \"password\": \"GraphQL123\"\r\n}"
 							}
 						},
@@ -228,20 +168,24 @@
 							"value": "*"
 						},
 						{
+							"key": "Set-Cookie",
+							"value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJncmFwaHFsQHRlc3QuY29tIiwiaWF0IjoxNzU1NTE5NjgxLCJleHAiOjE3NTU1NjI4ODF9.K1f_3SWz1oKWKtebvuOHpbKkxFm-AC4bTibkOa98qCk; Max-Age=604800; Path=/; Expires=Mon, 25 Aug 2025 12:21:21 GMT; HttpOnly; SameSite=Lax"
+						},
+						{
 							"key": "Content-Type",
 							"value": "application/json; charset=utf-8"
 						},
 						{
 							"key": "Content-Length",
-							"value": "409"
+							"value": "218"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"199-C28iwzHK+Kfrl55Y+qPF937kLDU\""
+							"value": "W/\"da-CFx8rBiBSlylv8SDm+VazxadRZQ\""
 						},
 						{
 							"key": "Date",
-							"value": "Sun, 17 Aug 2025 10:20:16 GMT"
+							"value": "Mon, 18 Aug 2025 12:21:21 GMT"
 						},
 						{
 							"key": "Connection",
@@ -253,7 +197,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"data\": {\n        \"login\": {\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJncmFwaHFsQHRlc3QuY29tIiwiaWF0IjoxNzU1NDI2MDE2LCJleHAiOjE3NTU0NjkyMTZ9.---Zdb7GFokMJ9Lb86-yr15N_J-tDDQpGM1vUOg3otA\",\n            \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJncmFwaHFsQHRlc3QuY29tIiwiaWF0IjoxNzU1NDI2MDE2LCJleHAiOjE3NTYwMzA4MTZ9.hHEwfaZUbASsrmzpMmXYUr4VuMvgktQlMKiraWjF1Hc\",\n            \"error\": null\n        }\n    }\n}"
+					"body": "{\n    \"data\": {\n        \"login\": {\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJncmFwaHFsQHRlc3QuY29tIiwiaWF0IjoxNzU1NTE5NjgxLCJleHAiOjE3NTU1NjI4ODF9.K1f_3SWz1oKWKtebvuOHpbKkxFm-AC4bTibkOa98qCk\",\n            \"error\": null\n        }\n    }\n}"
 				}
 			]
 		},
@@ -345,6 +289,164 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"data\": {\n        \"refresh\": {\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJncmFwaHFsQHRlc3QuY29tIiwiaWF0IjoxNzU1NDI4NDkyLCJleHAiOjE3NTU0NzE2OTJ9.JGrjVS9ol4LbPsX7H40deI5teFgFElB6A_T6mQMIi3k\",\n            \"error\": null\n        }\n    }\n}"
+				},
+				{
+					"name": "Refresh",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n    refresh {\r\n        token\r\n        error\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "220"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"dc-XXPfqD4SEQSDyHd0H8CSrfT6vX4\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 18 Aug 2025 12:20:00 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"refresh\": {\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJncmFwaHFsQHRlc3QuY29tIiwiaWF0IjoxNzU1NTE5NjAwLCJleHAiOjE3NTU1NjI4MDB9.R2PsPM6R91d-5Aq_OyM5MbJyKKmD4MRAFftRLL_UMW8\",\n            \"error\": null\n        }\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Me",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Me",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n    me {\r\n        email\r\n        first_name\r\n        last_name\r\n        username\r\n        id\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/graphql",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "113"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"71-gNoawOkd+Vz1PMahKlG4NIjtSuo\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 18 Aug 2025 12:19:20 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"me\": {\n            \"email\": \"graphql@test.com\",\n            \"first_name\": \"Graph\",\n            \"last_name\": \"QL\",\n            \"username\": \"grapgql\",\n            \"id\": \"3\"\n        }\n    }\n}"
 				}
 			]
 		}

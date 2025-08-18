@@ -18,10 +18,10 @@ const createApp = async () => {
         {
             typeDefs,
             resolvers,
-            context: ({ req }) => {
+            context: ({ req, res }) => {
                 const token = req.headers.authorization || '';
                 const user = getUserFromToken(token);
-                return { user };
+                return { user, res, req };
             }
         }
     );

@@ -1,5 +1,11 @@
 const User = require('../../models/User');
-const { createToken, createRefreshToken, getRefreshToken, bcrypt } = require('../../utils/auth');
+const {
+    createToken,
+    createRefreshToken,
+    getRefreshToken,
+    bcrypt,
+    getCookie
+} = require('../../utils/auth');
 
 module.exports = {
     Query: {
@@ -9,7 +15,7 @@ module.exports = {
     },
 
     Mutation: {
-        signup: async (_, { data }) => {
+        signup: async (_, { data }, { res }) => {
             const existingUser = await User.findOne({ where: { email: data.email }});
 
             if (existingUser) return { error: 'User already exists' };
@@ -27,10 +33,16 @@ module.exports = {
             const token = createToken(user);
             const refreshToken = createRefreshToken(user)
 
-            return { token, refreshToken, user };
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                maxAge: 7 * 24 * 60 * 60 * 1000,
+                sameSite: "lax"
+            });
+
+            return { token, user };
         },
 
-        login: async (_, { data }) => {
+        login: async (_, { data }, { res }) => {
             const user = await User.findOne({ where: { email: data.email } });
             if (!user) return { error: "User does not exist" }
 
@@ -38,17 +50,24 @@ module.exports = {
             if (!valid) return { error: "Invalid credentials" }
 
             const token = createToken(user);
-            const refreshToken = createRefreshToken(user)
+            const refreshToken = createRefreshToken(user);
 
-            return { token, refreshToken, user };
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                maxAge: 7 * 24 * 60 * 60 * 1000,
+                sameSite: "lax"
+            });
+
+            return { token, user };
         },
 
-        refresh: async (_, { token }) => {
-            const payload = getRefreshToken(token);
-            if (!payload) throw new Error('Refresh token invalid');
+        refresh: async (_, __, { req }) => {
+            const refreshToken = getCookie(req.headers.cookie, 'refreshToken');
+            const payload = getRefreshToken(refreshToken);
+            if (!payload) return { error: 'Refresh token invalid' }
 
             const user = await User.findByPk(payload.id)
-            if (!user) throw new Error('User does not exist');
+            if (!user) return { error: 'User does not exist'};
 
             const new_token = createToken(user)
 
