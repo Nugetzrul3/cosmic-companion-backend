@@ -39,7 +39,7 @@ module.exports = {
                 sameSite: "lax"
             });
 
-            return { token, user };
+            return { token, refreshToken, user };
         },
 
         login: async (_, { data }, { res }) => {
@@ -58,7 +58,7 @@ module.exports = {
                 sameSite: "lax"
             });
 
-            return { token, user };
+            return { token, refreshToken, user };
         },
 
         refresh: async (_, __, { req }) => {
