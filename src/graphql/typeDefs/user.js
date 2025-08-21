@@ -11,6 +11,7 @@ module.exports = gql`
     
     type AuthPayload {
         token: String
+        refreshToken: String
         user: User
         error: String
     },
