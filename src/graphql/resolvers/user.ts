@@ -1,9 +1,9 @@
 import { createToken, createRefreshToken, getRefreshToken, getCookie } from '../../utils/auth';
-import { UserJWTPayload } from "../../interfaces/models";
-import { User } from "../../models/User";
-import bcrypt from 'bcryptjs';
 import {AuthPayload, LoginBody, RefreshPayload, RegisterBody} from "../../interfaces/graphql";
+import { UserJWTPayload } from "../../interfaces/models";
 import { Response, Request } from "express";
+import { User } from "../../models";
+import bcrypt from 'bcryptjs';
 
 const resolvers = {
     Query: {
