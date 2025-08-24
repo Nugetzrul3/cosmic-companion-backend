@@ -176,6 +176,10 @@
             font-weight: 500;
         }
 
+        [data-theme="dark"] .header {
+            background: linear-gradient(135deg, #083a75 0%, #0b3a68 100%);
+        }
+
         [data-theme="dark"] .sidebar-item.active {
             background: #1a2a3a;
             color: #58a6ff;
@@ -238,6 +242,10 @@
             font-size: 0.875rem;
             font-weight: 600;
             margin-right: 1rem;
+        }
+
+        .endpoint-method.query {
+            background: #007bff;
         }
 
         .endpoint-url {
@@ -517,13 +525,13 @@
 <div class="container">
     <header class="header">
         <div class="theme-toggle">
-            <span class="theme-toggle-label">🌙</span>
-            <div class="toggle-switch" id="themeToggle"></div>
             <span class="theme-toggle-label">☀️</span>
+            <div class="toggle-switch" id="themeToggle"></div>
+            <span class="theme-toggle-label">🌙</span>
         </div>
         <h1>Cosmic Companion API</h1>
         <p class="subtitle">GraphQL API Documentation</p>
-        <span class="version-badge">Version 1.0</span>
+        <span class="version-badge">Version 1.1</span>
     </header>
 
     <div class="main-content">
@@ -620,6 +628,13 @@
         email: $email,
         password: $password
     }) {
+        user {
+            id
+            email
+            username
+            first_name
+            last_name
+        }
         token
         refreshToken
         error
@@ -679,12 +694,12 @@
                             <h3 class="subsection-title">Example Request</h3>
                             <div class="code-container">
                                     <pre class="code-block json">{
-    "query": "mutation Register($firstName: String!, $lastName: String!, $username: String!, $email: String!, $password: String!) { signup(data: { firstName: $firstName, lastName: $lastName, username: $username, email: $email, password: $password }) { token refreshToken error } }",
+    "query": "mutation Register($firstName: String!, $lastName: String!, $username: String!, $email: String!, $password: String!) { signup(data: { firstName: $firstName, lastName: $lastName, username: $username, email: $email, password: $password }) { user { id email username first_name last_name } token refreshToken error } }",
     "variables": {
         "firstName": "Graph",
         "lastName": "QL",
-        "username": "graphql",
-        "email": "graphql@test.com",
+        "username": "grapgql",
+        "email": "graphql1@test.com",
         "password": "GraphQL123"
     }
 }</pre>
@@ -699,7 +714,15 @@
                                     <pre class="code-block json">{
     "data": {
         "signup": {
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJncmFwaHFsMUB0ZXN0LmNvbSIsImlhdCI6MTc1NTUxOTc1MywiZXhwIjoxNzU1NTYyOTUzfQ.YUHlxaZ11YNknh6OH5hxUFG-uRzIoNXDW68FZwy4dHE",
+            "user": {
+                "id": "9",
+                "email": "graphql1@test.com",
+                "username": "grapgql",
+                "first_name": "Graph",
+                "last_name": "QL"
+            },
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZW1haWwiOiJncmFwaHFsMUB0ZXN0LmNvbSIsImlhdCI6MTc1NjAwOTY0MSwiZXhwIjoxNzU2MDUyODQxfQ.I0MiNsYHNauwGyvtuEx9Y7I9oP26oyYUldcwIktdvXM",
+            "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZW1haWwiOiJncmFwaHFsMUB0ZXN0LmNvbSIsImlhdCI6MTc1NjAwOTY0MSwiZXhwIjoxNzU2NjE0NDQxfQ.gGjjh8lXnBLFxROl-36UcycFaaabKbYE26HXgsMJaWs",
             "error": null
         }
     }
@@ -726,9 +749,44 @@
                                 </thead>
                                 <tbody>
                                 <tr>
+                                    <td class="parameter-name">user</td>
+                                    <td class="parameter-type">Object</td>
+                                    <td>User profile information</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.id</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>Unique user identifier</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.email</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>User's email address</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.username</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>User's unique username</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.first_name</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>User's first name</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.last_name</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>User's last name</td>
+                                </tr>
+                                <tr>
                                     <td class="parameter-name">token</td>
                                     <td class="parameter-type">String</td>
                                     <td>JWT access token for API authentication</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">refreshToken</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>Refresh token (also set as HTTP-only cookie)</td>
                                 </tr>
                                 <tr>
                                     <td class="parameter-name">error</td>
@@ -738,9 +796,7 @@
                                 </tbody>
                             </table>
 
-                            <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 6px; margin-top: 1rem;">
-                                <p style="margin-bottom: 0;"><strong>🍪 Refresh Token:</strong> The refresh token is automatically set as an HTTP-only cookie for enhanced security. You don't need to handle it manually - the browser will include it in subsequent requests to the refresh endpoint.</p>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -769,6 +825,13 @@
         email: $email,
         password: $password
     }) {
+        user {
+            id
+            email
+            username
+            first_name
+            last_name
+        }
         token
         refreshToken
         error
@@ -810,9 +873,9 @@
                             <h3 class="subsection-title">Example Request</h3>
                             <div class="code-container">
                                     <pre class="code-block json">{
-    "query": "mutation Login($email: String!, $password: String!) { login(data: { email: $email, password: $password }) { token refreshToken error } }",
+    "query": "mutation Login($email: String!, $password: String!) { login(data: { email: $email, password: $password }) { user { id email username first_name last_name } token refreshToken error } }",
     "variables": {
-        "email": "graphql@test.com",
+        "email": "graphql1@test.com",
         "password": "GraphQL123"
     }
 }</pre>
@@ -827,7 +890,15 @@
                                     <pre class="code-block json">{
     "data": {
         "login": {
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJncmFwaHFsQHRlc3QuY29tIiwiaWF0IjoxNzU1NTE5NjgxLCJleHAiOjE3NTU1NjI4ODF9.K1f_3SWz1oKWKtebvuOHpbKkxFm-AC4bTibkOa98qCk",
+            "user": {
+                "id": "9",
+                "email": "graphql1@test.com",
+                "username": "grapgql",
+                "first_name": "Graph",
+                "last_name": "QL"
+            },
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZW1haWwiOiJncmFwaHFsMUB0ZXN0LmNvbSIsImlhdCI6MTc1NjAwOTcwMSwiZXhwIjoxNzU2MDUyOTAxfQ.3vVrj1373vzCLgUM06-9zquodB-3JaqrF7EZy3JEclk",
+            "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZW1haWwiOiJncmFwaHFsMUB0ZXN0LmNvbSIsImlhdCI6MTc1NjAwOTcwMSwiZXhwIjoxNzU2NjE0NTAxfQ.NTBFWXrKeDFDsdLpuCRjILVTPtB0KWS3ZH-SocGKGlg",
             "error": null
         }
     }
@@ -854,9 +925,44 @@
                                 </thead>
                                 <tbody>
                                 <tr>
+                                    <td class="parameter-name">user</td>
+                                    <td class="parameter-type">Object</td>
+                                    <td>User profile information</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.id</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>Unique user identifier</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.email</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>User's email address</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.username</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>User's unique username</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.first_name</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>User's first name</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.last_name</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>User's last name</td>
+                                </tr>
+                                <tr>
                                     <td class="parameter-name">token</td>
                                     <td class="parameter-type">String</td>
                                     <td>JWT access token for API authentication</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">refreshToken</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>Refresh token (also set as HTTP-only cookie)</td>
                                 </tr>
                                 <tr>
                                     <td class="parameter-name">error</td>
@@ -866,9 +972,7 @@
                                 </tbody>
                             </table>
 
-                            <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 6px; margin-top: 1rem;">
-                                <p style="margin-bottom: 0;"><strong>🍪 Refresh Token:</strong> The refresh token is automatically set as an HTTP-only cookie for enhanced security. You don't need to handle it manually - the browser will include it in subsequent requests to the refresh endpoint.</p>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -880,30 +984,28 @@
                 <div class="endpoint-card">
                     <div class="endpoint-header">
                         <div>
-                            <span class="endpoint-method">POST</span>
+                            <span class="endpoint-method query">QUERY</span>
                             <span class="endpoint-url">/graphql</span>
                         </div>
                         <div class="endpoint-description">
-                            Refresh an expired access token using either a refresh token parameter or the HTTP-only cookie (recommended).
+                            Refresh an expired access token using the HTTP-only cookie. Returns a new access token and user information.
                         </div>
                     </div>
 
                     <div class="endpoint-body">
                         <div class="subsection">
-                            <h3 class="subsection-title">GraphQL Mutation</h3>
+                            <h3 class="subsection-title">GraphQL Query</h3>
                             <div class="code-container">
-                                    <pre class="code-block graphql"># Option 1: Using cookie (recommended)
-mutation Refresh {
+                                    <pre class="code-block graphql">query {
     refresh {
         token
-        error
-    }
-}
-
-# Option 2: Using token parameter
-mutation Refresh($token: String!) {
-    refresh(token: $token) {
-        token
+        user {
+            id
+            email
+            username
+            first_name
+            last_name
+        }
         error
     }
 }</pre>
@@ -912,45 +1014,17 @@ mutation Refresh($token: String!) {
                         </div>
 
                         <div class="subsection">
-                            <h3 class="subsection-title">Parameters</h3>
-                            <table class="parameter-table">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Required</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="parameter-name">token</td>
-                                    <td class="parameter-type">String</td>
-                                    <td style="color: #6c757d;">Optional</td>
-                                    <td>Refresh token. If not provided, will use the HTTP-only cookie</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <h3 class="subsection-title">Authentication</h3>
+                            <div class="auth-warning">
+                                <p style="margin: 0;"><strong>🍪 Refresh Token Required:</strong> This endpoint requires the refresh token to be present as an HTTP-only cookie. The browser will automatically include this cookie if it was previously set by the login or signup endpoints.</p>
+                            </div>
                         </div>
 
                         <div class="subsection">
-                            <h3 class="subsection-title">Example Requests</h3>
-
-                            <h4 style="margin: 1rem 0 0.5rem; color: var(--text-secondary);">Option 1: Using Cookie (Recommended)</h4>
+                            <h3 class="subsection-title">Example Request</h3>
                             <div class="code-container">
                                     <pre class="code-block json">{
-    "query": "mutation { refresh { token error } }"
-}</pre>
-                                <button class="copy-btn" onclick="copyToClipboard(this.previousElementSibling.textContent)">Copy</button>
-                            </div>
-
-                            <h4 style="margin: 1rem 0 0.5rem; color: var(--text-secondary);">Option 2: Using Token Parameter</h4>
-                            <div class="code-container">
-                                    <pre class="code-block json">{
-    "query": "mutation Refresh($token: String!) { refresh(token: $token) { token error } }",
-    "variables": {
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJncmFwaHFsQHRlc3QuY29tIiwiaWF0IjoxNzU1NDI2MDE2LCJleHAiOjE3NTYwMzA4MTZ9.hHEwfaZUbASsrmzpMmXYUr4VuMvgktQlMKiraWjF1Hc"
-    }
+    "query": "query { refresh { token user { id email username first_name last_name } error } }"
 }</pre>
                                 <button class="copy-btn" onclick="copyToClipboard(this.previousElementSibling.textContent)">Copy</button>
                             </div>
@@ -963,7 +1037,14 @@ mutation Refresh($token: String!) {
                                     <pre class="code-block json">{
     "data": {
         "refresh": {
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJncmFwaHFsQHRlc3QuY29tIiwiaWF0IjoxNzU1NDI4NDkyLCJleHAiOjE3NTU0NzE2OTJ9.JGrjVS9ol4LbPsX7H40deI5teFgFElB6A_T6mQMIi3k",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZW1haWwiOiJncmFwaHFsMUB0ZXN0LmNvbSIsImlhdCI6MTc1NjAwOTc4NSwiZXhwIjoxNzU2MDUyOTg1fQ.YfRwWrldZuGLcE-nYSuUrUOe2TkqgXxw4RWPNmMr81I",
+            "user": {
+                "id": "9",
+                "email": "graphql1@test.com",
+                "username": "grapgql",
+                "first_name": "Graph",
+                "last_name": "QL"
+            },
             "error": null
         }
     }
@@ -989,6 +1070,36 @@ mutation Refresh($token: String!) {
                                     <td>New JWT access token for API authentication</td>
                                 </tr>
                                 <tr>
+                                    <td class="parameter-name">user</td>
+                                    <td class="parameter-type">Object</td>
+                                    <td>Current user profile information</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.id</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>Unique user identifier</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.email</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>User's email address</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.username</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>User's unique username</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.first_name</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>User's first name</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">user.last_name</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>User's last name</td>
+                                </tr>
+                                <tr>
                                     <td class="parameter-name">error</td>
                                     <td class="parameter-type">String</td>
                                     <td>Error message if token refresh failed, null if successful</td>
@@ -997,15 +1108,7 @@ mutation Refresh($token: String!) {
                             </table>
                         </div>
 
-                        <div class="subsection">
-                            <h3 class="subsection-title">Usage Notes</h3>
-                            <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 6px; margin-top: 1rem;">
-                                <p style="margin-bottom: 0.5rem;"><strong>🍪 Cookie Method (Recommended):</strong> Simply call the refresh mutation without parameters. The HTTP-only cookie will be used automatically.</p>
-                                <p style="margin-bottom: 0.5rem;"><strong>🔐 Token Parameter Method:</strong> Useful for mobile apps or environments where cookies aren't available.</p>
-                                <p style="margin-bottom: 0.5rem;"><strong>⏰ When to use:</strong> Call when your access token expires (typically after 12 hours).</p>
-                                <p style="margin-bottom: 0;"><strong>🔄 Best practice:</strong> Implement automatic token refresh in your application for seamless user experience.</p>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </section>
@@ -1016,7 +1119,7 @@ mutation Refresh($token: String!) {
                 <div class="endpoint-card">
                     <div class="endpoint-header">
                         <div>
-                            <span class="endpoint-method">POST</span>
+                            <span class="endpoint-method query">QUERY</span>
                             <span class="endpoint-url">/graphql</span>
                         </div>
                         <div class="endpoint-description">
@@ -1044,7 +1147,7 @@ mutation Refresh($token: String!) {
                         <div class="subsection">
                             <h3 class="subsection-title">Authentication</h3>
                             <div class="auth-warning">
-                                <p style="margin: 0;"><strong>🔒 Authentication Required:</strong> This endpoint requires a valid access token in the Authorization header:</p>
+                                <p style="margin: 0;"><strong>🔐 Authentication Required:</strong> This endpoint requires a valid access token in the Authorization header:</p>
                                 <code>Authorization: Bearer &lt;your-access-token&gt;</code>
                             </div>
                         </div>
@@ -1066,11 +1169,11 @@ mutation Refresh($token: String!) {
                                     <pre class="code-block json">{
     "data": {
         "me": {
-            "email": "graphql@test.com",
-            "first_name": "Graph",
-            "last_name": "QL",
+            "id": "9",
+            "email": "graphql1@test.com",
             "username": "grapgql",
-            "id": "3"
+            "first_name": "Graph",
+            "last_name": "QL"
         }
     }
 }</pre>
@@ -1116,14 +1219,6 @@ mutation Refresh($token: String!) {
                                 </tr>
                                 </tbody>
                             </table>
-                        </div>
-
-                        <div class="subsection">
-                            <h3 class="subsection-title">Error Handling</h3>
-                            <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 6px; margin-top: 1rem;">
-                                <p style="margin-bottom: 0.5rem;"><strong>401 Unauthorized:</strong> Missing or invalid access token</p>
-                                <p style="margin-bottom: 0;"><strong>403 Forbidden:</strong> Token expired - use the refresh endpoint to get a new token</p>
-                            </div>
                         </div>
                     </div>
                 </div>
