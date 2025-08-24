@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server-express');
+import { gql } from 'graphql-tag';
 
-module.exports = gql`
+export default gql`
     type User {
         id: ID!
         email: String!
@@ -37,12 +37,12 @@ module.exports = gql`
     
     type Query {
         me: User
+        refresh: RefreshPayload
         error: String
     }
     
     type Mutation {
         signup(data: RegisterBody): AuthPayload!
         login(data: LoginBody): AuthPayload!
-        refresh: RefreshPayload!
     }
 `;

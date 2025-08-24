@@ -1,6 +1,6 @@
-const userResolvers = require('./user');
+import userResolvers from './user';
 
-module.exports = {
+const resolvers = {
     Query: {
         ...userResolvers.Query,
     },
@@ -8,3 +8,5 @@ module.exports = {
         ...userResolvers.Mutation,
     }
 };
+
+export default resolvers;
