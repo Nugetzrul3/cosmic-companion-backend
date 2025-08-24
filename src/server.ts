@@ -1,5 +1,5 @@
-const { createApp } = require('./app');
-const sequelize = require('./db');
+import createApp from './app';
+import sequelize from './db';
 
 const startServer = async () => {
     const app = await createApp();

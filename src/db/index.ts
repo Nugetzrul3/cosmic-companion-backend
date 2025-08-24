@@ -1,7 +1,8 @@
-const { Sequelize } = require('sequelize');
-require('dotenv').config();
+import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
 
-let sequelize;
+dotenv.config();
+let sequelize: Sequelize;
 
 if (process.env.NODE_ENV === 'test') {
     sequelize = new Sequelize(
@@ -12,6 +13,10 @@ if (process.env.NODE_ENV === 'test') {
         }
     );
 } else {
+    if (!process.env.DATABASE_URL) {
+        throw new Error("Missing DATABASE_URL");
+    }
+
     sequelize = new Sequelize(
         process.env.DATABASE_URL,
         {
@@ -21,4 +26,4 @@ if (process.env.NODE_ENV === 'test') {
     );
 }
 
-module.exports = sequelize;
+export default sequelize;

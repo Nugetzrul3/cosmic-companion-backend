@@ -1,4 +1,4 @@
-const sequelize = require('./src/db');
+import sequelize from "./src/db";
 
 beforeAll(async () => {
     await sequelize.sync({ force: true });
