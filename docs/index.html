@@ -1138,6 +1138,7 @@
         first_name
         last_name
         username
+        error
     }
 }</pre>
                                 <button class="copy-btn" onclick="copyToClipboard(this.previousElementSibling.textContent)">Copy</button>
@@ -1174,6 +1175,7 @@
             "username": "grapgql",
             "first_name": "Graph",
             "last_name": "QL"
+            "error": null
         }
     }
 }</pre>
@@ -1216,6 +1218,11 @@
                                     <td class="parameter-name">username</td>
                                     <td class="parameter-type">String</td>
                                     <td>User's unique username</td>
+                                </tr>
+                                <tr>
+                                    <td class="parameter-name">error</td>
+                                    <td class="parameter-type">String</td>
+                                    <td>Error message if token refresh failed, null if successful</td>
                                 </tr>
                                 </tbody>
                             </table>

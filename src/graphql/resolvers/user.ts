@@ -8,7 +8,15 @@ import bcrypt from 'bcryptjs';
 const resolvers = {
     Query: {
         me: (_parent: any, _args: any, context: { user?: UserJWTPayload }) => {
-            return context.user ? User.findOne({ where: { email: context.user.email }}) : null;
+            if (!context.user) {
+                return { error: "Access token expired" }
+            }
+            const user = User.findOne({ where: { email: context.user.email }});
+            if (!user) {
+                return { error: "User not found" };
+            }
+
+            return user;
         },
 
         refresh: async (_parent: any, _args: any, context: { req: Request }): Promise<RefreshPayload> => {

@@ -1,23 +1,24 @@
 import { gql } from 'graphql-tag';
 
 export default gql`
-    type User {
-        id: ID!
-        email: String!
-        username: String!
-        first_name: String!
+    type UserPayload {
+        id: ID
+        email: String
+        username: String
+        first_name: String
         last_name: String
+        error: String
     }
     
     type AuthPayload {
         token: String
         refreshToken: String
-        user: User
+        user: UserPayload
         error: String
     },
     
     type RefreshPayload {
-        user: User
+        user: UserPayload
         token: String
         error: String
     }
@@ -36,9 +37,8 @@ export default gql`
     }
     
     type Query {
-        me: User
+        me: UserPayload
         refresh: RefreshPayload
-        error: String
     }
     
     type Mutation {
