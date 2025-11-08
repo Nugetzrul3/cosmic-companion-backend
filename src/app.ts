@@ -26,7 +26,10 @@ const createApp = async (): Promise<Application> => {
 
     app.use(
         "/graphql",
-        cors<cors.CorsRequest>(),
+        cors<cors.CorsRequest>({
+            origin: "http://localhost:5173",
+            credentials: true
+        }),
         bodyParser.json(),
         expressMiddleware(server, {
             context: async ({ req, res }) => {
